@@ -1,0 +1,554 @@
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Dark mode (default) ── */
+:root,
+[data-theme="dark"] {
+  --bg-primary:    #0f172a;
+  --bg-card:       #1e293b;
+  --bg-input:      #0f172a;
+  --accent:        #6366f1;
+  --accent-hover:  #4f46e5;
+  --accent-light:  #818cf8;
+  --success:       #22c55e;
+  --danger:        #ef4444;
+  --warning:       #f59e0b;
+  --text-primary:  #f1f5f9;
+  --text-muted:    #94a3b8;
+  --border:        #334155;
+  --radius:        12px;
+  --radius-sm:     8px;
+  --shadow:        0 4px 24px rgba(0, 0, 0, 0.4);
+  --transition:    0.2s ease;
+  --font:          'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Light mode ── */
+[data-theme="light"] {
+  --bg-primary:    #f1f5f9;
+  --bg-card:       #ffffff;
+  --bg-input:      #f8fafc;
+  --accent:        #6366f1;
+  --accent-hover:  #4f46e5;
+  --accent-light:  #4f46e5;
+  --success:       #16a34a;
+  --danger:        #dc2626;
+  --warning:       #d97706;
+  --text-primary:  #0f172a;
+  --text-muted:    #64748b;
+  --border:        #cbd5e1;
+  --shadow:        0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+html {
+  font-size: 16px;
+}
+
+/* Animasi transisi saat ganti tema */
+body,
+.card,
+.todo-item,
+.link-chip,
+.todo-input,
+.link-input,
+.todo-edit-input {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+body {
+  font-family: var(--font);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* =============================================
+   THEME TOGGLE BUTTON
+   ============================================= */
+.btn-theme {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.15s ease;
+}
+
+.btn-theme:hover {
+  transform: scale(1.1);
+}
+
+.btn-theme:active {
+  transform: scale(0.95);
+}
+
+/* =============================================
+   GREETING SECTION
+   ============================================= */
+.greeting-section {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+  max-width: 700px;
+  width: 100%;
+}
+
+.date {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.time {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.greeting {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--accent-light);
+  margin-top: 0.5rem;
+}
+
+/* Nama yang bisa diklik untuk edit */
+.greeting .user-name {
+  cursor: pointer;
+  border-bottom: 2px dashed var(--accent-light);
+  padding-bottom: 1px;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.greeting .user-name:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Input edit nama */
+.name-edit-input {
+  background: var(--bg-input);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: var(--font);
+  padding: 0.25rem 0.6rem;
+  outline: none;
+  width: 180px;
+  text-align: center;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Hint teks di bawah greeting */
+.name-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+  transition: opacity 0.3s ease;
+}
+
+/* =============================================
+   CARD
+   ============================================= */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem 2rem;
+  width: 100%;
+  max-width: 700px;
+  box-shadow: var(--shadow);
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* =============================================
+   BUTTONS
+   ============================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), opacity var(--transition);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  background: #475569;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #334155;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  color: #dc2626
+}
+
+.btn-ghost:hover {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.btn-icon {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-icon:hover {
+  background: var(--border);
+  color: var(--text-primary);
+}
+
+/* =============================================
+   TIMER
+   ============================================= */
+.timer-display {
+  font-size: 4.5rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  color: var(--accent-light);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 1.5rem;
+  transition: color var(--transition);
+}
+
+.timer-display.running {
+  color: var(--success);
+}
+
+.timer-display.finished {
+  color: var(--danger);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* =============================================
+   TO-DO LIST
+   ============================================= */
+.todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.todo-input,
+.link-input {
+  flex: 1;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  padding: 0.5rem 0.85rem;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  font-family: var(--font);
+}
+
+.todo-input:focus,
+.link-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.todo-input::placeholder,
+.link-input::placeholder {
+  color: var(--text-muted);
+}
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition), opacity var(--transition);
+}
+
+.todo-item.done {
+  opacity: 0.55;
+}
+
+.todo-item.done .todo-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.todo-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--success);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.todo-edit-input {
+  flex: 1;
+  background: var(--bg-primary);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  outline: none;
+  font-family: var(--font);
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.todo-empty {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 1.25rem 0 0.5rem;
+}
+
+/* Pesan error duplikat */
+.todo-duplicate {
+  font-size: 0.85rem;
+  color: var(--warning);
+  text-align: center;
+  min-height: 1.2em;
+  padding-top: 0.4rem;
+  transition: opacity 0.3s ease;
+}
+
+/* Highlight tugas duplikat */
+.todo-item.shake {
+  animation: shake 0.4s ease;
+  border-color: var(--warning) !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+/* =============================================
+   QUICK LINKS
+   ============================================= */
+.link-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.link-form .link-input {
+  min-width: 140px;
+}
+
+.links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem 0.35rem 0.65rem;
+  font-size: 0.85rem;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.link-chip:hover {
+  border-color: var(--accent);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+.link-chip a {
+  color: var(--accent-light);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link-chip a:hover {
+  text-decoration: underline;
+}
+
+.link-favicon {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+.link-delete {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0 2px;
+  transition: color var(--transition);
+}
+
+.link-delete:hover {
+  color: var(--danger);
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 520px) {
+  .time {
+    font-size: 2.6rem;
+  }
+
+  .timer-display {
+    font-size: 3.25rem;
+  }
+
+  .card {
+    padding: 1.25rem 1rem;
+  }
+
+  .todo-form,
+  .link-form {
+    flex-direction: column;
+  }
+
+  .link-form .btn {
+    width: 100%;
+  }
+}

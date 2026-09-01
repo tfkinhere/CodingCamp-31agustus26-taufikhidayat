@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Produktivitas</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+
+    <!-- ===== THEME TOGGLE ===== -->
+    <button id="btn-theme" class="btn-theme" aria-label="Ganti tema" title="Ganti tema">
+      <span id="theme-icon">🌙</span>
+    </button>
+
+    <!-- ===== GREETING SECTION ===== -->
+    <section class="greeting-section" id="greeting-section">
+      <p id="current-date" class="date"></p>
+      <p id="current-time" class="time"></p>
+      <!-- Nama bisa diklik untuk diedit -->
+      <h1 id="greeting-text" class="greeting"></h1>
+      <p class="name-hint" id="name-hint">Klik nama untuk mengubahnya ✏️</p>
+    </section>
+
+    <!-- ===== FOCUS TIMER SECTION ===== -->
+    <section class="card" id="timer-section">
+      <h2 class="section-title">⏱ Focus Timer</h2>
+      <div id="timer-display" class="timer-display">25:00</div>
+      <div class="timer-controls">
+        <button id="btn-start" class="btn btn-primary">Mulai</button>
+        <button id="btn-stop" class="btn btn-secondary">Berhenti</button>
+        <button id="btn-reset" class="btn btn-ghost">Reset</button>
+      </div>
+    </section>
+
+    <!-- ===== TO-DO LIST SECTION ===== -->
+    <section class="card" id="todo-section">
+      <h2 class="section-title">Daftar Tugas</h2>
+
+      <form id="todo-form" class="todo-form">
+        <input
+          type="text"
+          id="todo-input"
+          class="todo-input"
+          placeholder="Tambah tugas baru..."
+          maxlength="100"
+          autocomplete="off"
+        />
+        <button type="submit" class="btn btn-primary">Tambah</button>
+      </form>
+
+      <ul id="todo-list" class="todo-list">
+        <!-- Item dirender oleh JS -->
+      </ul>
+
+      <p id="todo-empty" class="todo-empty">Belum ada tugas. Yuk tambahkan! 🎯</p>
+      <!-- Pesan error duplikat -->
+      <p id="todo-duplicate" class="todo-duplicate" aria-live="polite"></p>
+    </section>
+
+    <!-- ===== QUICK LINKS SECTION ===== -->
+    <section class="card" id="links-section">
+      <h2 class="section-title">Tautan Favorit</h2>
+
+      <form id="link-form" class="link-form">
+        <input
+          type="text"
+          id="link-name"
+          class="link-input"
+          placeholder="Nama (misal: YouTube)"
+          maxlength="30"
+          autocomplete="off"
+        />
+        <input
+          type="url"
+          id="link-url"
+          class="link-input"
+          placeholder="URL (misal: https://youtube.com)"
+          autocomplete="off"
+        />
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </form>
+
+      <div id="links-container" class="links-container">
+        <!-- Link dirender oleh JS -->
+      </div>
+
+      <p id="links-empty" class="todo-empty">Belum ada tautan. Tambahkan situs favoritmu! 🌐</p>
+    </section>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
